@@ -175,42 +175,21 @@ def getProfile(idProfile):
         error_message = dataBase[0]['message']
         return {'message_error': str(error_message)}
 
-def postProfile(name_profile, lastName, birthdate, idUser, idRole, idCard):
+def postProfile(name_profile, lastName, birthdate, idUser, idRole):
     dataBase = connect()
     if not isinstance(dataBase, list):
         cursorObject = dataBase.cursor()
         try:
-            # Validar que el idUser no esté en uso
-            check_user_stmt = "SELECT idUser FROM user WHERE idUser = %s"
-            cursorObject.execute(check_user_stmt, (idUser,))
-            existing_user = cursorObject.fetchone()
-
-            if existing_user:
-                cursorObject.close()
-                dataBase.close()
-                return {'message_error': 'Usuario a asignar actualmente en uso'}
-
-            # Validar que el idCard no esté en uso
-            check_card_stmt = "SELECT idCard FROM card WHERE idCard = %s"
-            cursorObject.execute(check_card_stmt, (idCard,))
-            existing_card = cursorObject.fetchone()
-
-            if existing_card:
-                cursorObject.close()
-                dataBase.close()
-                return {'message_error': 'Card a asignar actualmente en uso'}
-
-            # Si ambas validaciones pasan, procede a insertar el perfil
             insert_stmt = ("INSERT INTO profile (name_profile, lastName, birthdate, idUser, idRole, idCard) "
-                           "VALUES (%s, %s, %s, %s, %s, %s)")
-            cursorObject.execute(insert_stmt, (name_profile, lastName, birthdate, idUser, idRole, idCard))
+                           "VALUES (%s, %s, %s, %s, %s, NULL)")
+            cursorObject.execute(insert_stmt, (name_profile, lastName, birthdate, idUser, idRole))
             dataBase.commit()
             new_profile_id = cursorObject.lastrowid
             cursorObject.close()
             dataBase.close()
 
             return {'idProfile': new_profile_id, 'name_profile': name_profile, 'lastName': lastName,
-                    'birthdate': birthdate, 'idUser': idUser, 'idRole': idRole, 'idCard': idCard}
+                    'birthdate': birthdate, 'idUser': idUser, 'idRole': idRole}
 
         except Exception as e:
             cursorObject.close()

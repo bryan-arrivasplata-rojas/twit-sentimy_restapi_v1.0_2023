@@ -18,8 +18,8 @@ def getProfileController(idProfile):
         respuesta = {'message_error':str(response)}
         return respuesta
     
-def postProfileController(name_profile, lastName, birthdate, idUser, idRole, idCard):
-    response = postProfile(name_profile, lastName, birthdate, idUser, idRole, idCard)
+def postProfileController(name_profile, lastName, birthdate, idUser, idRole):
+    response = postProfile(name_profile, lastName, birthdate, idUser, idRole)
     if not (isinstance(response, list) and 'message_error' in response[0]):
         return response
     else:

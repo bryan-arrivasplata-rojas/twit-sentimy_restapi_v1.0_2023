@@ -19,7 +19,7 @@ def postSearchController(idUser, identifier, name_tweet):
         else:
             found_match = True  # Marcar que se encontró una coincidencia
             break  # Salir del bucle si se encontró una coincidencia
-    nltk.download('vader_lexicon')
+    '''nltk.download('vader_lexicon')
     sia = SentimentIntensityAnalyzer()
     if found_match:
         comments = getSearch(identifier)
@@ -52,7 +52,7 @@ def postSearchController(idUser, identifier, name_tweet):
             print("Sentimiento: Neutro")
 
 
-        return response_filter  # Devolver la respuesta encontrada
+        return response_filter  # Devolver la respuesta encontrada'''
     tweet_response = postTweet(identifier,name_tweet)
     if 'message_error' in tweet_response:
         # Si hubo un error al crear el tweet, devuelve el error.

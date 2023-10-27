@@ -1,4 +1,5 @@
 from src.Models.userModel import getUsers,getUser,postUser,putUser,deleteUser
+from src.Models.profileModel import postProfile
 
 def getUsersController():
     response = getUsers()
@@ -18,10 +19,16 @@ def getUserController(idUser):
         respuesta = {'message_error':str(response)}
         return respuesta
     
-def postUserController(username,password):
+def postUserController(username,password,name_profile, lastName, birthdate):
     response = postUser(username,password)
     if not (isinstance(response, list) and 'message_error' in response[0]):
-        return response
+        idUser = response['idUser']
+        reponse_profile = postProfile(name_profile, lastName, birthdate, idUser, 2) #2 es rol user_basic
+        if not (isinstance(reponse_profile, list) and 'message_error' in reponse_profile[0]):
+            return {**response, **reponse_profile}
+        else:
+            respuesta_profile = {'message_error':str(reponse_profile)}
+            return respuesta_profile
     else:
         respuesta = {'message_error':str(response)}
         return respuesta

@@ -19,7 +19,7 @@ def getLogin(username, password):
                     "WHERE "
                     "b.idUser=a.idUser and "
                     "b.idRole=c.idRole and "
-                    "a.user = %s")
+                    "a.username = %s")
             cursorObject.execute(stmt,(username,))
             columns = [desc[0] for desc in cursorObject.description]
             result = cursorObject.fetchone()
