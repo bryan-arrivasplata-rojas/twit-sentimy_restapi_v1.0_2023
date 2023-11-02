@@ -1,5 +1,5 @@
 
-from flask import Flask,jsonify
+from flask import Flask
 from src.Routes.user import userRoute
 from src.Routes.profile import profileRoute
 from src.Routes.role import roleRoute

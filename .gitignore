@@ -5,3 +5,4 @@ src/Models/__pycache__
 Connection/__pycache__
 app.ngrok.py
 Backup/cuentaNgrok.txt
+helpers/__pycache__
